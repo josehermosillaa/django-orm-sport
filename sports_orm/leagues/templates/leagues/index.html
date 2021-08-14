@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Sports Leagues</title>
+</head>
+
+<body>
+
+	<h2>Consulta 1. Todas las ligas de baseball</h2>
+	<ol>
+		{% for league in consulta01 %}
+		<li>{{league.name}}</li>
+		{% empty %}
+		<p>No se encontraron Ligas</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 2. Todas las ligas de mujeres</h2>
+	<ol>
+		{% for league in consulta02 %}
+		<li>{{league.name}}</li>
+		{% empty %}
+		<p>No se encontraron Ligas</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 3. Todas las ligas donde el deporte es cualquier tipo de hockey</h2>
+	<ol>
+		{% for league in consulta03 %}
+		<li>{{league.name}}</li>
+		{% empty %}
+		<p>No se encontraron Ligas</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 4. Todas las ligas donde el deporte no sea soccer</h2>
+	<ol>
+		{% for league in consulta04 %}
+		<li>{{league.name}}</li>
+		{% empty %}
+		<p>No se encontraron Ligas</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 5. Todas las ligas que se llaman "conferencias"</h2>
+	<ol>
+		{% for league in consulta05 %}
+		<li>{{league.name}}</li>
+		{% empty %}
+		<p>No se encontraron Ligas</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 6. Todas las ligas de la región atlántica</h2>
+	<ol>
+		{% for league in consulta06 %}
+		<li>{{league.name}}</li>
+		{% empty %}
+		<p>No se encontraron Ligas</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 7. Todos los equipos con sede en Dallas</h2>
+	<ol>
+		{% for team in consulta07 %}
+		<li>{{team.location}} {{team.team_name}}</li>
+		{% empty %}
+		<p>No se encontraron equipos</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 8. Todos los equipos nombrados los Raptors</h2>
+	<ol>
+		{% for team in consulta08 %}
+		<li>{{team.location}} {{team.team_name}}</li>
+		{% empty %}
+		<p>No se encontraron equipos</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 9. Todos los equipos cuya ubicación incluye "City"</h2>
+	<ol>
+		{% for team in consulta09 %}
+		<li>{{team.location}} {{team.team_name}}</li>
+		{% empty %}
+		<p>No se encontraron equipos</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 10. Todos los equipos cuyos nombres comienzan con "T"</h2>
+	<ol>
+		{% for team in consulta10 %}
+		<li>{{team.location}} {{team.team_name}}</li>
+		{% empty %}
+		<p>No se encontraron equipos</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 11. Todos los equipos, ordenados alfabéticamente por ubicación</h2>
+	<ol>
+		{% for team in consulta11 %}
+		<li>{{team.location}} {{team.team_name}}</li>
+		{% empty %}
+		<p>No se encontraron equipos</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 12. Todos los equipos, ordenados por nombre de equipo en orden alfabético inverso</h2>
+	<ol>
+		{% for team in consulta12 %}
+		<li>{{team.location}} {{team.team_name}}</li>
+		{% empty %}
+		<p>No se encontraron equipos</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 13. Cada jugador con apellido "Cooper"</h2>
+	<ol>
+		{% for player in consulta13 %}
+		<li>{{player.first_name}} {{player.last_name}}</li>
+		{% empty %}
+		<p>No se encontraron jugadores</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 14. Cada jugador con nombre "Joshua"</h2>
+	<ol>
+		{% for player in consulta14 %}
+		<li>{{player.first_name}} {{player.last_name}}</li>
+		{% empty %}
+		<p>No se encontraron jugadores</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 15. Todos los jugadores con el apellido "Cooper" EXCEPTO aquellos con "Joshua" como primer nombre</h2>
+	<ol>
+		{% for player in consulta15 %}
+		<li>{{player.first_name}} {{player.last_name}}</li>
+		{% empty %}
+		<p>No se encontraron jugadores</p>
+		{% endfor %}
+	</ol>
+
+	<h2>Consulta 16. Todos los jugadores con nombre "Alexander" o nombre "Wyatt"</h2>
+	<ol>
+		{% for player in consulta16 %}
+		<li>{{player.first_name}} {{player.last_name}}</li>
+		{% empty %}
+		<p>No se encontraron jugadores</p>
+		{% endfor %}
+	</ol>
+	<h1>Leagues</h1>
+	<ol>
+		{% for league in leagues %}
+		<li>{{league.name}}</li>
+		{% empty %}
+		<p>No leagues found. Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a
+				href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
+		{% endfor %}
+	</ol>
+	<h1>Teams</h1>
+	<ol>
+		{% for team in teams %}
+		<li>{{team.location}} {{team.team_name}}</li>
+		{% empty %}
+		<p>No teams found. Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a
+				href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
+		{% endfor %}
+	</ol>
+	<h1>Players</h1>
+	<ol>
+		{% for player in players %}
+		<li>{{player.first_name}} {{player.last_name}}</li>
+		{% empty %}
+		<p>No teams found. Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a
+				href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
+		{% endfor %}
+	</ol>
+</body>
+
+</html>
