@@ -150,8 +150,110 @@
 		<p>No se encontraron jugadores</p>
 		{% endfor %}
 	</ol>
+----------------------------------------------------------------------------------
+	<h2>Sport ORM 2</h2>
+
+	<h2>1-todos los equipos en la Atlantic Soccer Conference</h2>
+		{% for c in 2consulta01 %}
+		<ol>
+			<li>{{c.team_name}}</li>
+		</ol>
+		{% endfor %}
+
+	<h2>2- todos los jugadores (actuales) en los Boston Penguins</h2>
+		{% for c in 2consulta02 %}
+		<ol>
+			<li>{{c.first_name}} {{c.last_name}}</li>
+		</ol>
+		{% endfor %}	
+		
+	<h2>3-  todos los jugadores (actuales) en la International Collegiate Baseball Conference</h2>
+		{% for c in 2consulta03 %}
+		<ol>
+			<li>{{c.first_name}} {{c.last_name}}</li>
+		</ol>
+		{% endfor %}	
+	
+	<h2>4- todos los jugadores (actuales) en la Conferencia Americana de Fútbol Amateur con el apellido "López"</h2>
+		{% for c in 2consulta04 %}
+		<ol>
+			<li>{{c.first_name}} {{c.last_name}}</li>
+		</ol>
+		{% endfor %}	
+	
+	<h2>5- todos los jugadores de fútbol</h2>
+		{% for c in 2consulta05 %}
+		<ol>
+			<li>{{c.first_name}} {{c.last_name}}</li>
+		</ol>
+		{% endfor %}	
+
+	<h2>6- todos los equipos con un jugador llamado Sophia</h2>
+		{% for c in 2consulta06 %}
+		<ol>
+			<li>{{ c.team_name }}</li>
+		</ol>
+		{% endfor %}
+
+	<h2>7- todas las ligas con un jugador (actual) llamado "Sophia"</h2>
+		{% for c in 2consulta07 %}
+		<ol>
+			<li>{{ c.name }}</li>
+		</ol>
+		{% endfor %}
+
+	<h2>8- todos con el apellido "Flores" que NO (actualmente) juegan para los Washington Roughriders</h2>
+		{% for c in 2consulta08 %}
+		<ol>
+			<li>{{c.first_name}} {{c.last_name}}</li>
+		</ol>
+
+	<h2>9- todos los equipos, pasados y presentes, con los que Samuel Evans ha jugado</h2>
+		{% for c in 2consulta09 %}
+		<ol>
+			<li>{{c.team_name}}</li>
+		</ol>
+	
+		
+	<h2>10- todos los jugadores, pasados y presentes, con los gatos tigre de Manitoba</h2>
+		{% for c in 2consulta10 %}
+		<ol>
+			<li>{{c.first_name}} {{c.last_name}}</li>
+		</ol>
+
+	<h2>11- todos los jugadores que anteriormente estaban (pero que no lo están) con los Wichita Vikings</h2>
+		{% for c in 2consulta11 %}
+		<ol>
+			<li>{{c.first_name}} {{c.last_name}}</li>
+		</ol>
+
+	<h2>12- cada equipo para el que Jacob Gray jugó antes de unirse a los Oregon Colts</h2>
+		{% for c in 2consulta12 %}
+		<ol>
+			<li>{{c.team_name}}</li>
+		</ol>
+
+	<h2>13- todos llamados "Joshua" que alguna vez han jugado en la Federación Atlántica de Jugadores de Béisbol Amateur</h2>
+		{% for c in 2consulta13 %}
+		<ol>
+			<li>{{c.first_name}} {{c.last_name}}</li>
+		</ol>
+
+	<h2>14- todos los equipos que han tenido 12 o más jugadores, pasados y presentes.</h2>
+		{% for c in 2consulta14 %}
+		<ol>
+			<li>{{c.team_name}}</li>
+		</ol>
+		
+	<h2>15- todos los jugadores y el número de equipos para los que jugó, ordenados por la cantidad de equipos para los que han jugado</h2>
+		{% for c in 2consulta15 %}
+		<ol>
+			<li>{{tarea.first_name}} {{tarea.last_name}} {{tarea.all_teams__count}}</li>
+		</ol>
+	
+	
 	<h1>Leagues</h1>
-	<ol>
+		<ol>
 		{% for league in leagues %}
 		<li>{{league.name}}</li>
 		{% empty %}
