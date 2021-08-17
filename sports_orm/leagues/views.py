@@ -5,21 +5,6 @@ from django.db.models import Q, Count
 from . import team_maker
 
 def index(request):
-	lvl2tarea14all = Team.objects.annotate(Count('all_players'))
-	print(lvl2tarea14all[0].all_players)
-	final = {}
-	for team in lvl2tarea14all:
-		if team.all_players__count > 11:
-			final[team.team_name] = team.all_players__count
-			print(team.team_name, " ", team.all_players__count)
-		#print(team.team_name, " ",team.all_players__count + team.curr_players__count)
-		#print(team.team_name, " ", team.all_players__count)
-	print(final)
-
-	dconsulta15 = Player.objects.annotate(Count('all_teams'))
-	print(dconsulta15)
-	dconsulta15ordered = dconsulta15.order_by('-all_teams__count')
-	print(dconsulta15ordered)
 
 	context = {
 		"leagues": League.objects.all(),
@@ -41,21 +26,33 @@ def index(request):
 		'consulta14':Player.objects.filter(first_name__contains = "Joshua"),
 		'consulta15':Player.objects.filter(last_name__contains = "Cooper").exclude(first_name__contains="Joshua"),
 		'consulta16':Player.objects.filter(Q(first_name__contains="Alexander")| Q(first_name__contains="Wyatt")),
-		'2consulta01':Team.objects.filter(league=League.objects.get(name="Atlantic Soccer Conference")),
-		'2consulta02':Player.objects.filter(curr_team=Team.objects.get(location = "Boston", team_name = "Penguins")),
-		'2consulta03':Player.objects.filter(curr_team__in=Team.objects.filter(league__in=(League.objects.filter(name="International Collegiate Baseball Conference")))),
-		'2consulta04':Player.objects.filter(curr_team__in=Team.objects.filter(league__in=(League.objects.filter(name="American Conference of Amateur Football")))),
-		'2consulta05':Player.objects.filter(all_teams__in=Team.objects.filter(league__in=(League.objects.filter(sport='Soccer')))),
-		'2consulta06':Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia")),
-		'2consulta07':League.objects.filter(teams__in = Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia"))),
-		'2consulta08':Player.objects.filter(last_name="Flores", curr_team__in=Team.objects.exclude(location="Washington", team_name="Roughriders")),
-		'2consulta09':Team.objects.filter(all_players =Player.objects.get(first_name="Samuel", last_name="Evans")),
-		'2consulta10':Team.objects.get(location="Manitoba").all_players.all(),
-		'2consulta11':list(set(Team.objects.get(location="Wichita", team_name="Vikings").all_players.all())-set(Team.objects.get(location="Wichita", team_name="Vikings").curr_players.all())),
-		'2consulta12':Player.objects.get(first_name="Jacob", last_name="Gray").all_teams.all().exclude(location="Oregon", team_name="Colts"),
-		'2consulta13': Player.objects.filter(all_teams__in =Team.objects.filter(league__in=(League.objects.filter(name="Atlantic Federation of Amateur Baseball Players")))).filter(first_name="Joshua"),
-		'2consulta14':final,
-		'2consulta15':dconsulta15ordered
+		'l2consulta01':Team.objects.filter(league__name="Atlantic Soccer Conference"),
+		# 'l2consulta02':Player.objects.filter(curr_team=Team.objects.get(location = "Boston", team_name = "Penguins")),
+		'l2consulta02':Player.objects.filter(curr_team__team_name="Penguins", curr_team__location="Boston"),
+		# 'l2consulta03':Player.objects.filter(curr_team__in=Team.objects.filter(league__in=(League.objects.filter(name="International Collegiate Baseball Conference")))),
+		'l2consulta03':Player.objects.filter(curr_team__league__name = "International Collegiate Baseball Conference"),
+		# 'l2consulta04':Player.objects.filter(curr_team__in=Team.objects.filter(league__in=(League.objects.filter(name="American Conference of Amateur Football")))),
+		'l2consulta04':Player.objects.filter(curr_team__league__name = "American Conference of Amateur Football").filter(last_name = "Lopez"),
+		# 'l2consulta05':Player.objects.filter(all_teams__in=Team.objects.filter(league__in=(League.objects.filter(sport='Soccer')))),
+		'l2consulta05':Player.objects.filter(curr_team__league__sport="Football"),
+		# 'l2consulta06':Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia")),
+		'l2consulta06':Team.objects.filter(curr_players__first_name="Sophia"),
+		# 'l2consulta07':League.objects.filter(teams__in = Team.objects.filter(curr_players__in=Player.objects.filter(first_name="Sophia"))),
+		'l2consulta07':League.objects.filter(teams__curr_players__first_name="Sophia"),
+		# 'l2consulta08':Player.objects.filter(last_name="Flores", curr_team__in=Team.objects.exclude(location="Washington", team_name="Roughriders")),
+		'l2consulta08':Player.objects.exclude(curr_team__team_name="Roughriders", curr_team__location="Washington").filter(last_name="Flores"),
+		# 'l2consulta09':Team.objects.filter(all_players =Player.objects.get(first_name="Samuel", last_name="Evans")),
+		'l2consulta09': Team.objects.filter(all_players__first_name="Samuel") & Team.objects.filter(all_players__last_name="Evans"),
+		# 'l2consulta10':Team.objects.get(location="Manitoba").all_players.all(),
+		'l2consulta10': Player.objects.filter(all_teams__team_name="Tiger-Cats") & Player.objects.filter(all_teams__location="Manitoba"),
+		# 'l2consulta11':list(set(Team.objects.get(location="Wichita", team_name="Vikings").all_players.all())-set(Team.objects.get(location="Wichita", team_name="Vikings").curr_players.all())),
+		'l2consulta11': Player.objects.filter(all_teams__team_name="Vikings").exclude(curr_team__team_name="Vikings").filter(all_teams__location="Wichita").exclude(curr_team__location="Wichita"),
+		# 'l2consulta12':Player.objects.get(first_name="Jacob", last_name="Gray").all_teams.all().exclude(location="Oregon", team_name="Colts"),
+		'l2consulta12': Team.objects.filter(all_players__first_name="Jacob", all_players__last_name="Gray").exclude(curr_players__first_name="Jacob", curr_players__last_name="Gray"),
+		# 'l2consulta13': Player.objects.filter(all_teams__in =Team.objects.filter(league__in=(League.objects.filter(name="Atlantic Federation of Amateur Baseball Players")))).filter(first_name="Joshua"),
+		'l2consulta13': Player.objects.filter(first_name = "Joshua",all_teams__league__name="Atlantic Federation of Amateur Baseball Players"),
+		'l2consulta14':Team.objects.annotate(num_players=Count('all_players')).filter(num_players__gte=12),
+		'l2consulta15': Player.objects.all().annotate(num_teams=Count('all_teams')).order_by('num_teams'),
 
 
 	}
